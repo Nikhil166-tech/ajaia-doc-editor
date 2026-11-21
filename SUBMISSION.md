@@ -9,7 +9,9 @@
 
 ## 📦 What Is Included In This Submission
 
-1. **Source Code:** Complete Next.js 14, TypeScript, Tailwind CSS, Tiptap, and Prisma SQLite codebase in `C:\ajaia-doc-editor`.
+1. **Live Production URL:** [https://ajaia-doc-editor-iota.vercel.app](https://ajaia-doc-editor-iota.vercel.app)
+2. **Local Run URL:** `http://localhost:3000`
+3. **Source Code:** Complete Next.js 14, TypeScript, Tailwind CSS, Tiptap, and Prisma SQLite codebase in `C:\ajaia-doc-editor`.
 2. **README.md:** Complete local setup, seed instructions, and test guide.
 3. **ARCHITECTURE.md:** Comprehensive architecture note covering design decisions, data model, trade-offs, and future roadmap.
 4. **AI_WORKFLOW.md:** Detailed AI-native note explaining tools used, acceleration points, rejected code/decisions, and verification methods.

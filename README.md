@@ -6,6 +6,7 @@ A lightweight, full-stack collaborative document editor inspired by Google Docs,
 
 ## 🚀 Live Demo & Seeded Test Accounts
 
+- **Live Production URL:** [https://ajaia-doc-editor-iota.vercel.app](https://ajaia-doc-editor-iota.vercel.app)
 - **Local URL:** `http://localhost:3000`
 - **Simulated Test Accounts (Available in header dropdown):**
   - **Alice Johnson:** `alice@ajaia.test` (Primary Owner)
