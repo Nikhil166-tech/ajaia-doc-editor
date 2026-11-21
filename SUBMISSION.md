@@ -16,7 +16,6 @@
 3. **ARCHITECTURE.md:** Comprehensive architecture note covering design decisions, data model, trade-offs, and future roadmap.
 4. **AI_WORKFLOW.md:** Detailed AI-native note explaining tools used, acceleration points, rejected code/decisions, and verification methods.
 5. **Automated Test Suite:** Integration tests (`tests/sharing.test.ts`) validating ownership, access denial, and permission grants. All 4 tests passing.
-6. **WALKTHROUGH_VIDEO.txt:** Text file containing the walkthrough video URL template and a step-by-step recording script.
 
 ---
 
