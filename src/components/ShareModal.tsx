@@ -108,6 +108,26 @@ export function ShareModal({
     }
   };
 
+  const handleUpdatePermission = async (targetEmail: string, newPermission: string) => {
+    try {
+      const res = await fetch(`/api/documents/${documentId}/share`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          targetEmail,
+          permission: newPermission,
+          userId: currentUser?.id,
+        }),
+      });
+
+      if (res.ok) {
+        onSharesUpdated();
+      }
+    } catch (err) {
+      console.error("Failed to update permission:", err);
+    }
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 animate-in fade-in duration-150">
       <div className="w-full max-w-lg bg-white rounded-xl shadow-xl border border-slate-200 overflow-hidden">
@@ -229,17 +249,29 @@ export function ShareModal({
                   </div>
 
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-600 flex items-center gap-1">
-                      {share.permission === "edit" ? (
-                        <>
-                          <Edit3 className="w-3 h-3 text-emerald-600" /> Can Edit
-                        </>
-                      ) : (
-                        <>
-                          <Eye className="w-3 h-3 text-blue-600" /> Can View
-                        </>
-                      )}
-                    </span>
+                    {isOwner ? (
+                      <select
+                        value={share.permission}
+                        onChange={(e) => handleUpdatePermission(share.user.email, e.target.value)}
+                        className="text-[11px] font-medium bg-slate-50 hover:bg-slate-100 border border-slate-300 rounded px-2 py-1 text-slate-700 cursor-pointer focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        title="Change permission"
+                      >
+                        <option value="edit">Can Edit</option>
+                        <option value="view">Can View</option>
+                      </select>
+                    ) : (
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded bg-slate-100 text-slate-600 flex items-center gap-1">
+                        {share.permission === "edit" ? (
+                          <>
+                            <Edit3 className="w-3 h-3 text-emerald-600" /> Can Edit
+                          </>
+                        ) : (
+                          <>
+                            <Eye className="w-3 h-3 text-blue-600" /> Can View
+                          </>
+                        )}
+                      </span>
+                    )}
 
                     {isOwner && (
                       <button
