@@ -85,3 +85,25 @@ The test suite in `tests/sharing.test.ts` validates:
 - Unauthorized user access rejection (HTTP 403 logic)
 - Permission assignment (`edit` vs `view`)
 - Access revocation
+
+---
+
+## 🗄️ Database Architecture: SQLite & PostgreSQL Upgrade Path
+
+This submission utilizes **SQLite (`dev.db`) via Prisma ORM** for local development to ensure **zero reviewer setup friction**—reviewers do not need to install, configure, or run an external PostgreSQL/pgAdmin service.
+
+### Upgrading to PostgreSQL in Production
+Switching to PostgreSQL (Neon, Supabase, AWS RDS) requires just two simple edits:
+1. In `prisma/schema.prisma`:
+   ```prisma
+   datasource db {
+     provider = "postgresql" // change from "sqlite"
+     url      = env("DATABASE_URL")
+   }
+   ```
+2. In `.env`:
+   ```env
+   DATABASE_URL="postgresql://user:password@localhost:5432/ajaia_docs?schema=public"
+   ```
+3. Run `npx prisma db push` to synchronize schemas.
+All models (`User`, `Document`, `DocumentShare`), relations, cascades, and queries are 100% Postgres-compatible out of the box.
