@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ajaia Docs - AI-Native Collaborative Document Editor
 
-## Getting Started
+A lightweight, full-stack collaborative document editor inspired by Google Docs, built as part of the **Ajaia LLC - AI-Native Full Stack Developer Assignment**.
 
-First, run the development server:
+---
 
+## 🚀 Live Demo & Seeded Test Accounts
+
+- **Local URL:** `http://localhost:3000`
+- **Simulated Test Accounts (Available in header dropdown):**
+  - **Alice Johnson:** `alice@ajaia.test` (Primary Owner)
+  - **Bob Smith:** `bob@ajaia.test` (Collaborator)
+
+---
+
+## ✨ Features Implemented
+
+1. **Document Creation & Rich-Text Editing**
+   - Create blank documents or open existing ones.
+   - Inline title editing with automatic persistence.
+   - Comprehensive Tiptap toolbar: **Bold**, *Italic*, <u>Underline</u>, Headings (H1, H2, H3), Bulleted Lists, Numbered Lists, Blockquotes, and Horizontal Dividers.
+   - Debounced auto-saving (1000ms) with real-time status indicators (*"Saving changes..."* / *"Saved to cloud"*).
+
+2. **File Upload & Markdown Import**
+   - Import `.md` and `.txt` files directly from the dashboard.
+   - Markdown headers (`# Header`) are automatically extracted as the document title.
+   - Content is parsed and converted into rich HTML paragraphs and headings.
+
+3. **Sharing & Access Control**
+   - Explicit document ownership (`ownerId`).
+   - Granular role-based permissions (`Can Edit` vs `View Only`).
+   - Owner can share with other team members by email and revoke access at any time.
+   - Dashboard cleanly separates **"My Documents"** from **"Shared with Me"**.
+
+4. **Persistence & Data Modeling**
+   - Relational database schema managed with Prisma ORM and SQLite.
+   - Database seeded with initial users and an onboarding document.
+
+5. **Automated Testing & Engineering Quality**
+   - Integration test suite powered by Vitest verifying owner isolation, unauthorized access blocks, share permission grants, and share revocation.
+   - Full TypeScript strict mode across frontend and API routes.
+
+---
+
+## 🛠️ Local Setup & Run Instructions
+
+### Prerequisites
+- Node.js 18+ (tested on v20.19.6)
+- npm 10+
+
+### Installation & Execution
 ```bash
+# 1. Clone or navigate to the project directory
+cd ajaia-doc-editor
+
+# 2. Install dependencies
+npm install
+
+# 3. Initialize & seed SQLite database
+npx prisma db push
+npx tsx prisma/seed.ts
+
+# 4. Run automated tests
+npm test # or npx vitest run
+
+# 5. Build and run production server
+npm run build
+npm start
+
+# Or run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🧪 Running Automated Tests
+```bash
+npx vitest run
+```
+The test suite in `tests/sharing.test.ts` validates:
+- Document owner integrity
+- Unauthorized user access rejection (HTTP 403 logic)
+- Permission assignment (`edit` vs `view`)
+- Access revocation
